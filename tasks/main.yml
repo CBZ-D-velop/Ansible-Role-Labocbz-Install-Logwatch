@@ -1,0 +1,50 @@
+---
+- name: "Install packages"
+  ansible.builtin.package:
+    update_cache: yes
+    name:
+      - cron
+      - logwatch
+
+- name: "Create Logwatch cache"
+  block:
+    - name: "Check /var/cache/logwatch directory"
+      register: logwatch_folder
+      ansible.builtin.stat:
+        path: /var/cache/logwatch
+
+    - name: "Create /var/cache/logwatch directory"
+      when: not logwatch_folder.stat.exists
+      ansible.builtin.file:
+        path: /var/cache/logwatch
+        state: directory
+        mode: 0700
+        owner: "root"
+        group: "root"
+
+- name: "Import Logwatch configuration"
+  ansible.builtin.template:
+    src: "templates/logwatch.conf.j2"
+    dest: "/etc/logwatch/conf/logwatch.conf"
+    mode: 0700
+    owner: "root"
+    group: "root"
+
+- name: "Send automatic reports with cron"
+  when: logwatch_create_cron_job
+  block:
+    - name: "Check if a cron file exist"
+      register: cron_file
+      ansible.builtin.stat:
+        path: "/etc/cron.d/ansible_logwtach_send_reports"
+
+    - name: "Configure automatic reports with cron"
+      when: not cron_file.stat.exists
+      ansible.builtin.cron:
+        name: "ansible - send Logwatch email reports"
+        weekday: "{{ logwatch_cron_job_weekday }}"
+        minute: "{{ logwatch_cron_job_minute }}"
+        hour: "{{ logwatch_cron_job_hour }}"
+        user: "root"
+        job: "logwatch --output {{ logwatch_output_format }} >/dev/null 2>&1"
+        cron_file: "ansible_logwtach_send_reports"

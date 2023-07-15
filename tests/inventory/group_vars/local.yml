@@ -1,0 +1,8 @@
+---
+inv_logwatch_create_cron_job: true
+inv_logwatch_cron_job_weekday: "*"
+inv_logwatch_cron_job_minute: "6"
+inv_logwatch_cron_job_hour: "6"
+
+inv_logwatch_report_email_address: "your.address@domain.tld"
+inv_logwatch_output_format: "html"

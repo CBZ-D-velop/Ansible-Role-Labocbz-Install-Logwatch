@@ -1,0 +1,23 @@
+---
+- name: "Converge"
+  hosts: "all"
+  tasks:
+    # replace these tasks with whatever you find suitable to test
+    - name: "Copy something to test use of synchronize module"
+      ansible.builtin.copy:
+        src: "/etc/hosts"
+        dest: "/tmp/hosts-from-controller"
+        mode: 0700
+
+    - name: "Include labocbz.install_logwatch"
+      tags:
+        - "labocbz.install_logwatch"
+      vars:
+        logwatch_create_cron_job: "{{ inv_logwatch_create_cron_job }}"
+        logwatch_cron_job_weekday: "{{ inv_logwatch_cron_job_weekday }}"
+        logwatch_cron_job_minute: "{{ inv_logwatch_cron_job_minute }}"
+        logwatch_cron_job_hour: "{{ inv_logwatch_cron_job_hour }}"
+        logwatch_report_email_address: "{{ inv_logwatch_report_email_address }}"
+        logwatch_output_format: "{{ inv_logwatch_output_format }}"
+      ansible.builtin.include_role:
+        name: "labocbz.install_logwatch"
