@@ -14,6 +14,12 @@
 
 An Ansible role to install and configure Logwtach on your host.
 
+The Ansible role installs and configures Logwatch on a target system. It provides customizable settings to set up a cron job for sending daily reports or disable it if desired, all of which can be configured through variables.
+
+The role allows customization of Logwatch's behavior, including the option to create a cron job for daily reports. Administrators can define the report's format, the email address to receive reports, the sender's name, and the time range and detail level for the reports.
+
+This flexibility empowers administrators to tailor Logwatch's functionality according to their specific needs, ensuring effective log analysis and monitoring for the system.
+
 ## Folder structure
 
 By default Ansible will look in each directory within a role for a main.yml file for relevant content (also man.yml and main):

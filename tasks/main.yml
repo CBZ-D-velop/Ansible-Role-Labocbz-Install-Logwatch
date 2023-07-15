@@ -3,8 +3,8 @@
   ansible.builtin.package:
     update_cache: yes
     name:
-      - cron
-      - logwatch
+      - "cron"
+      - "logwatch"
 
 - name: "Create Logwatch cache"
   block:
@@ -18,7 +18,7 @@
       ansible.builtin.file:
         path: /var/cache/logwatch
         state: directory
-        mode: 0700
+        mode: "0700"
         owner: "root"
         group: "root"
 
@@ -26,12 +26,12 @@
   ansible.builtin.template:
     src: "templates/logwatch.conf.j2"
     dest: "/etc/logwatch/conf/logwatch.conf"
-    mode: 0700
+    mode: "0700"
     owner: "root"
     group: "root"
 
 - name: "Send automatic reports with cron"
-  when: logwatch_create_cron_job
+  when: logwatch_create_cron_job | default(false)
   block:
     - name: "Check if a cron file exist"
       register: cron_file
