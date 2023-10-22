@@ -1,7 +1,7 @@
 ---
 - name: "Install packages"
   ansible.builtin.package:
-    update_cache: yes
+    update_cache: false
     name:
       - "cron"
       - "logwatch"
