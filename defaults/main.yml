@@ -1,11 +1,11 @@
 ---
-logwatch_create_cron_job: true
-logwatch_cron_job_weekday: "*"
-logwatch_cron_job_minute: "6"
-logwatch_cron_job_hour: "6"
+install_logwatch__create_cron_job: true
+install_logwatch__cron_job_weekday: "*"
+install_logwatch__cron_job_minute: "6"
+install_logwatch__cron_job_hour: "6"
 
-logwatch_output_format: "html"
-logwatch_report_email_address: "your.address@domain.tld"
-logwatch_email_from: "Logwatch"
-logwatch_range: "Yesterday"
-logwatch_detail: "Med"
+install_logwatch__output_format: "html"
+install_logwatch__report_email_address: "your.address@domain.tld"
+install_logwatch__email_from: "Logwatch"
+install_logwatch__range: "Yesterday"
+install_logwatch__detail: "Med"

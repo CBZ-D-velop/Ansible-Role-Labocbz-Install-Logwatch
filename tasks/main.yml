@@ -9,12 +9,12 @@
 - name: "Create Logwatch cache"
   block:
     - name: "Check /var/cache/logwatch directory"
-      register: logwatch_folder
+      register: install_logwatch__folder
       ansible.builtin.stat:
         path: /var/cache/logwatch
 
     - name: "Create /var/cache/logwatch directory"
-      when: not logwatch_folder.stat.exists
+      when: not install_logwatch__folder.stat.exists
       ansible.builtin.file:
         path: /var/cache/logwatch
         state: directory
@@ -31,20 +31,20 @@
     group: "root"
 
 - name: "Send automatic reports with cron"
-  when: logwatch_create_cron_job | default(false)
+  when: install_logwatch__create_cron_job | default(false)
   block:
     - name: "Check if a cron file exist"
       register: cron_file
       ansible.builtin.stat:
-        path: "/etc/cron.d/ansible_logwatch_send_reports"
+        path: "/etc/cron.d/ansible_logwtach_send_reports"
 
     - name: "Configure automatic reports with cron"
       when: not cron_file.stat.exists
       ansible.builtin.cron:
         name: "ansible - send Logwatch email reports"
-        weekday: "{{ logwatch_cron_job_weekday }}"
-        minute: "{{ logwatch_cron_job_minute }}"
-        hour: "{{ logwatch_cron_job_hour }}"
+        weekday: "{{ install_logwatch__cron_job_weekday }}"
+        minute: "{{ install_logwatch__cron_job_minute }}"
+        hour: "{{ install_logwatch__cron_job_hour }}"
         user: "root"
-        job: "logwatch --output {{ logwatch_output_format }} > /dev/null 2>&1"
-        cron_file: "ansible_logwatch_send_reports"
+        job: "logwatch --output {{ install_logwatch__output_format }} > /dev/null 2>&1"
+        cron_file: "ansible_logwtach_send_reports"

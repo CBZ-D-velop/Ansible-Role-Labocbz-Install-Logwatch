@@ -2,24 +2,24 @@
 # Don't forget to keep this file updated
 # molecule/<scenario>/verify.yml
 - name: "Verify"
-  hosts: "all"
+  hosts: "local"
   gather_facts: false
   tasks:
 
     - name: "Check if Logwatch cache exist"
-      register: logwatch_cache
-      failed_when: not logwatch_cache.stat.exists
+      register: install_logwatch__cache
+      failed_when: not install_logwatch__cache.stat.exists
       ansible.builtin.stat:
         path: "/var/cache/logwatch"
 
     - name: "Check if Logwatch configuration exist"
-      register: logwatch_configuration
-      failed_when: not logwatch_configuration.stat.exists
+      register: install_logwatch__configuration
+      failed_when: not install_logwatch__configuration.stat.exists
       ansible.builtin.stat:
         path: "/etc/logwatch/conf/logwatch.conf"
 
     - name: "Check if a cron file exist"
-      when: inv_logwatch_create_cron_job
+      when: inv_install_logwatch__create_cron_job
       register: cron_file
       failed_when: not cron_file.stat.exists
       ansible.builtin.stat:
@@ -29,4 +29,5 @@
       register: logwtach_create_report_status
       failed_when: logwtach_create_report_status.rc != 0
       changed_when: logwtach_create_report_status.rc != 0
-      ansible.builtin.command: "logwatch --output {{ inv_logwatch_output_format }}"
+      ansible.builtin.command: |
+        logwatch --output {{ inv_install_logwatch__output_format }}
