@@ -40,7 +40,7 @@ TmpDir = /var/cache/logwatch
 #To make email Default set Output = mail to save to file set Output = file
 Output = stdout
 #To make Html the default formatting Format = html
-Format = {{ logwatch_output_format }}
+Format = {{ install_logwatch__output_format }}
 #To make Base64 [aka uuencode] Encode = base64
 Encode = none
 
@@ -57,7 +57,7 @@ Encode = none
 # Default person to mail reports to.  Can be a local account or a
 # complete email address.  Variable Output should be set to mail, or
 # --output mail should be passed on command line to enable mail feature.
-MailTo = {{ logwatch_report_email_address }}
+MailTo = {{ install_logwatch__report_email_address }}
 # WHen using option --multiemail, it is possible to specify a different
 # email recipient per host processed.  For example, to send the report
 # for hostname host1 to user@example.com, use:
@@ -66,7 +66,7 @@ MailTo = {{ logwatch_report_email_address }}
 
 # Default person to mail reports from.  Can be a local account or a
 # complete email address.
-MailFrom = {{ logwatch_email_from }}
+MailFrom = {{ install_logwatch__email_from }}
 
 # if set, the results will be saved in <filename> instead of mailed
 # or displayed. Be sure to set Output = file also.
@@ -82,14 +82,14 @@ MailFrom = {{ logwatch_email_from }}
 
 # The default time range for the report...
 # The current choices are All, Today, Yesterday
-Range = {{ logwatch_range }}
+Range = {{ install_logwatch__range }}
 
 # The default detail level for the report.
 # This can either be Low, Med, High or a number.
 # Low = 0
 # Med = 5
 # High = 10
-Detail = {{ logwatch_detail }}
+Detail = {{ install_logwatch__detail }}
 
 
 # The 'Service' option expects either the name of a filter

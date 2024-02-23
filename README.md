@@ -103,16 +103,16 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-logwatch_create_cron_job: true
-logwatch_cron_job_weekday: "*"
-logwatch_cron_job_minute: "6"
-logwatch_cron_job_hour: "6"
+install_logwatch__create_cron_job: true
+install_logwatch__cron_job_weekday: "*"
+install_logwatch__cron_job_minute: "6"
+install_logwatch__cron_job_hour: "6"
 
-logwatch_output_format: "html"
-logwatch_report_email_address: "your.address@domain.tld"
-logwatch_email_from: "Logwatch"
-logwatch_range: "Yesterday"
-logwatch_detail: "Med"
+install_logwatch__output_format: "html"
+install_logwatch__report_email_address: "your.address@domain.tld"
+install_logwatch__email_from: "Logwatch"
+install_logwatch__range: "Yesterday"
+install_logwatch__detail: "Med"
 
 ```
 
@@ -125,13 +125,13 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-inv_logwatch_create_cron_job: true
-inv_logwatch_cron_job_weekday: "*"
-inv_logwatch_cron_job_minute: "6"
-inv_logwatch_cron_job_hour: "6"
+inv_install_logwatch__create_cron_job: true
+inv_install_logwatch__cron_job_weekday: "*"
+inv_install_logwatch__cron_job_minute: "6"
+inv_install_logwatch__cron_job_hour: "6"
 
-inv_logwatch_report_email_address: "your.address@domain.tld"
-inv_logwatch_output_format: "html"
+inv_install_logwatch__report_email_address: "your.address@domain.tld"
+inv_install_logwatch__output_format: "html"
 
 ```
 
@@ -150,12 +150,12 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     tags:
     - "labocbz.install_logwatch"
     vars:
-    logwatch_create_cron_job: "{{ inv_logwatch_create_cron_job }}"
-    logwatch_cron_job_weekday: "{{ inv_logwatch_cron_job_weekday }}"
-    logwatch_cron_job_minute: "{{ inv_logwatch_cron_job_minute }}"
-    logwatch_cron_job_hour: "{{ inv_logwatch_cron_job_hour }}"
-    logwatch_report_email_address: "{{ inv_logwatch_report_email_address }}"
-    logwatch_output_format: "{{ inv_logwatch_output_format }}"
+    install_logwatch__create_cron_job: "{{ inv_install_logwatch__create_cron_job }}"
+    install_logwatch__cron_job_weekday: "{{ inv_install_logwatch__cron_job_weekday }}"
+    install_logwatch__cron_job_minute: "{{ inv_install_logwatch__cron_job_minute }}"
+    install_logwatch__cron_job_hour: "{{ inv_install_logwatch__cron_job_hour }}"
+    install_logwatch__report_email_address: "{{ inv_install_logwatch__report_email_address }}"
+    install_logwatch__output_format: "{{ inv_install_logwatch__output_format }}"
     ansible.builtin.include_role:
     name: "labocbz.install_logwatch"
 ```
@@ -174,6 +174,18 @@ Here you can put your change to keep a trace of your work and decisions.
 * Molecule now use remote Docker image by Lord Robin Crombez
 * Molecule now use custom Docker image in CI/CD by env vars
 * New CICD with needs and optimization
+
+### 2024-02-23: New CICD and fixes
+
+* Added support for Ubuntu 22
+* Added support for Debian 11/22
+* Edited vars for linting (role name and __)
+* Added generic support for Docker dind (can add used for obscures reasons ... user in use)
+* Fix idempotency
+* Added informations for UID and GID for user/groups
+* Added support for user password creation (on_create)
+* New CI, need work on tag and releases
+* CI use now Sonarqube
 
 ## Authors
 
