@@ -40,7 +40,7 @@
     - name: "Check if a cron file exist"
       register: cron_file
       ansible.builtin.stat:
-        path: "/etc/cron.d/ansible_logwtach_send_reports"
+        path: "/etc/cron.d/ansible_install_logwatch__send_reports"
 
     - name: "Configure automatic reports with cron"
       when: not cron_file.stat.exists
@@ -51,4 +51,4 @@
         hour: "{{ install_logwatch__cron_job_hour }}"
         user: "root"
         job: "logwatch --output {{ install_logwatch__output_format }} > /dev/null 2>&1"
-        cron_file: "ansible_logwtach_send_reports"
+        cron_file: "ansible_install_logwatch__send_reports"
