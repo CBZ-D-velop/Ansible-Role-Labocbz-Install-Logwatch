@@ -23,7 +23,7 @@
       register: cron_file
       failed_when: not cron_file.stat.exists
       ansible.builtin.stat:
-        path: "/etc/cron.d/ansible_logwtach_send_reports"
+        path: "/etc/cron.d/ansible_install_logwatch__send_reports"
 
     - name: "Create a Logwtach report and check status code"
       register: logwtach_create_report_status
